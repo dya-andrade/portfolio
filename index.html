@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+
     <title>Dyane Andrade Araújo — Backend Engineer</title>
 
     <link rel="icon" type="image/png" href="favicon.png">
@@ -48,10 +49,6 @@
         </div>
 
         <div class="hero-extra">
-            <p>
-                Sistemas financeiros críticos, Open Finance e microsserviços
-                de alta escala — com atenção aos detalhes.
-            </p>
 
             <p class="meta">
                 <span class="pin">📍</span> Cotia, São Paulo • <span class="cat">🐱</span> 5 gatos
@@ -78,11 +75,7 @@
         <section class="block fade">
             <h2 class="section-title">Sobre</h2>
             <p>
-                Desenvolvedora backend com mais de 4 anos de experiência
-                em produtos financeiros de alto volume transacional.
-                Trabalho com autonomia, responsabilidade técnica e
-                curiosidade constante — característica que compartilho
-                com meus 5 gatos <span class="paw">🐾</span>
+                Este portfólio apresenta, de forma prática, os problemas que resolvo no dia a dia, minha forma de pensar arquitetura e meu nível de atuação técnica, indo além de uma simples lista de tecnologias. Aqui compartilho projetos, experiências reais e aprendizados contínuos, refletindo minha evolução profissional rumo ao nível <b>Pleno.</b><span class="paw">🐾</span>
             </p>
         </section>
 
@@ -387,11 +380,13 @@
         <section class="block fade">
             <h2 class="section-title">Contato</h2>
 
-            <form id="contact-form">
-                <input name="name" placeholder="Seu nome" required />
-                <input name="email" type="email" placeholder="Seu e-mail" required />
-                <textarea name="message" placeholder="Mensagem" required></textarea>
-                <button>Enviar mensagem</button>
+            <form id="contact-form" novalidate>
+                <input name="from_name" placeholder="Seu nome" minlength="3" required/>
+                <input name="from_email" type="email" placeholder="Seu e-mail" required/>
+                <textarea name="message" placeholder="Mensagem" minlength="10" required></textarea>
+                <small class="char-counter">0 / 10</small>
+                <button type="submit">Enviar mensagem</button>
+                <p class="form-feedback" aria-live="polite"></p>
             </form>
 
             <a class="whatsapp" href="https://wa.me/5511996944422" target="_blank">
@@ -414,6 +409,7 @@
     <div id="lightbox">
         <img id="lightbox-img" alt="Imagem ampliada" />
     </div>
+    <input type="text" name="company" style="display:none">
 </body>
 
 </html>
