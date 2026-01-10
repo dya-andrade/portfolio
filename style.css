@@ -27,7 +27,7 @@ body {
 
 header.hero {
   background: var(--gradient);
-  padding: 64px 20px;
+  padding: 64px 15px;
 }
 
 .hero-content.horizontal {
@@ -506,7 +506,7 @@ body::before {
 .star {
   display: inline-block;
   margin-right: 6px;
-  font-size: 1.1em;
+  font-size: 1.2em;
 
   animation: starGlow 4s ease-in-out infinite;
 }
@@ -1006,4 +1006,5 @@ textarea {
   background: rgba(255, 193, 7, 0.18);
   color: #b78103;
 }
+
 
