@@ -25,49 +25,45 @@
     <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
+    <!-- Prism CSS (tema) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-    <div class="corner-name">
-        Dyane Andrade Araújo
-    </div>
+    <header class="hero hero-editorial">
+        <div class="hero-inner">
 
-    <header class="hero">
+            <span class="hero-eyebrow">BACKEND ENGINEER</span>
 
-
-        <div class="hero-content horizontal">
-            <div class="avatar-wrapper">
-                <img src="avatar.png" alt="Avatar Dyane Andrade Araújo" class="avatar" />
+            <!-- avatar -->
+            <div class="hero-avatar">
+                <img src="avatar.png" alt="Avatar Dyane Andrade Araújo">
             </div>
 
-            <div class="hero-text">
-                <h1>Backend Engineer</h1>
-                <h2 class="highlight">curiosa por sistemas<br />complexos</h2>
+            <h1 class="hero-name">
+                Dyane<br />
+                Andrade Araújo
+            </h1>
+
+            <h2 class="highlight glow">
+                curiosa por sistemas complexos
+            </h2>
+
+            <div class="hero-meta">
+                <span><span class="pin">📍</span> Cotia, SP</span>
+                <span><span class="cat">🐱</span> 5 gatos</span>
+                <span><span class="star">⭐</span> rumo ao nível Pleno</span>
             </div>
+
+            <div class="hero-actions">
+                <a class="icon-link" href="https://linkedin.com/in/dyane-andrade-araujo" target="_blank">LinkedIn</a>
+                <a class="icon-link" href="https://github.com/dya-andrade" target="_blank">GitHub</a>
+            </div>
+
         </div>
-
-        <div class="hero-extra">
-
-            <p class="meta">
-                <span class="pin">📍</span> Cotia, São Paulo • <span class="cat">🐱</span> 5 gatos
-            </p>
-
-            <p class="status">
-                <span class="star">⭐</span> Foco atual: progressão para nível Pleno
-            </p>
-
-            <div class="actions social-fixed">
-                <a class="icon-link" href="https://linkedin.com/in/dyane-andrade-araujo" target="_blank">
-                    LinkedIn
-                </a>
-                <a class="icon-link" href="https://github.com/dya-andrade" target="_blank">
-                    GitHub
-                </a>
-            </div>
-        </div>
-
     </header>
 
     <main>
@@ -75,7 +71,10 @@
         <section class="block fade">
             <h2 class="section-title">Sobre</h2>
             <p>
-                Este portfólio apresenta, de forma prática, os problemas que resolvo no dia a dia, minha forma de pensar arquitetura e meu nível de atuação técnica, indo além de uma simples lista de tecnologias. Aqui compartilho projetos, experiências reais e aprendizados contínuos, refletindo minha evolução profissional rumo ao nível <b>Pleno.</b><span class="paw">🐾</span>
+                Este portfólio apresenta, de forma prática, os problemas que resolvo no dia a dia, minha forma de pensar
+                arquitetura e meu nível de atuação técnica, indo além de uma simples lista de tecnologias. Aqui
+                compartilho projetos, experiências reais e aprendizados contínuos, refletindo minha evolução
+                profissional rumo ao nível <b>Pleno.</b><span class="paw">🐾</span>
             </p>
         </section>
 
@@ -378,11 +377,98 @@
         </section>
 
         <section class="block fade">
+            <div class="section-header">
+                <span class="cat">📚</span>
+                <h2 class="section-title">Aprendizados & Escritas Técnicas</h2>
+            </div>
+
+            <div class="blogs-wrapper">
+                <button class="scroll-btn left" aria-label="Anteriores">←</button>
+
+                <div class="blogs-horizontal">
+
+                    <!-- Blog 1 -->
+                    <article class="blog-card" data-blog="system-design">
+                        <div class="blog-media">
+                            <img src="blogs/system-design.jpg" alt="System Design" />
+                        </div>
+                        <div class="blog-body">
+                            <h3>System Design - 7 Padrões</h3>
+                            <p>Os 7 padrões que aparecem em quase toda entrevista e o que realmente importa.</p>
+
+                            <div class="blog-tags">
+                                <span class="tag">Cache</span>
+                                <span class="tag">Sharding</span>
+                                <span class="tag">Mensageria</span>
+                                <span class="tag">Concorrência</span>
+                                <span class="tag">Event-Driven</span>
+                            </div>
+
+                            <div class="blog-footer">
+                                <span class="status aguardando">Aguardando</span>
+                                <span class="scope scope-referencia">Referência</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog 2 -->
+                    <article class="blog-card" data-blog="idempotencia">
+                        <div class="blog-media">
+                            <img src="blogs/default.png" alt="Idempotência" />
+                        </div>
+                        <div class="blog-body">
+                            <h3>Idempotência em Pagamentos</h3>
+                            <p>Como evitar duplicidade em sistemas financeiros.</p>
+
+                            <div class="blog-tags">
+                                <span class="tag">Resiliência</span>
+                                <span class="tag">OpenSearch</span>
+                                <span class="tag">Incidentes</span>
+                            </div>
+
+                            <div class="blog-footer">
+                                <span class="status andamento">Em andamento</span>
+                                <span class="scope scope-pessoal">Pessoal</span>
+                            </div>
+                        </div>
+
+                    </article>
+
+                    <!-- Blog 3 -->
+                    <article class="blog-card" data-blog="arquitetura-java">
+                        <div class="blog-media">
+                            <img src="blogs/arquitetura-java.jpg" alt="Arquitetura Java" />
+                        </div>
+                        <div class="blog-body">
+                            <h3>Arquitetura Java sem modismo</h3>
+                            <p>Escolhendo a arquitetura certa para o momento.</p>
+
+                            <div class="blog-tags">
+                                <span class="tag">Resiliência</span>
+                                <span class="tag">OpenSearch</span>
+                                <span class="tag">Incidentes</span>
+                            </div>
+
+                            <div class="blog-footer">
+                                <span class="status andamento">Em andamento</span>
+                                <span class="scope scope-referencia">Referência</span>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <button class="scroll-btn right" aria-label="Próximos">→</button>
+            </div>
+        </section>
+
+
+        <section class="block fade">
             <h2 class="section-title">Contato</h2>
 
             <form id="contact-form" novalidate>
-                <input name="from_name" placeholder="Seu nome" minlength="3" required/>
-                <input name="from_email" type="email" placeholder="Seu e-mail" required/>
+                <input name="from_name" placeholder="Seu nome" minlength="3" required />
+                <input name="from_email" type="email" placeholder="Seu e-mail" required />
                 <textarea name="message" placeholder="Mensagem" minlength="10" required></textarea>
                 <small class="char-counter">0 / 10</small>
                 <button type="submit">Enviar mensagem</button>
@@ -404,12 +490,42 @@
         <p>© 2026 • Dyane Andrade Araújo <span class="paw">🐾</span></p>
     </footer>
 
-    <script src="script.js"></script>
-
     <div id="lightbox">
         <img id="lightbox-img" alt="Imagem ampliada" />
     </div>
-    <input type="text" name="company" style="display:none">
+
+    <div id="carousel-modal" class="carousel-modal">
+        <button class="carousel-close">×</button>
+
+        <button class="carousel-nav left">‹</button>
+        <button class="carousel-nav right">›</button>
+
+        <div class="carousel-track"></div>
+    </div>
+
+    <div id="image-modal" class="image-modal" onclick="closeImage()">
+        <img id="modal-img" />
+    </div>
+
+    <div id="blog-modal">
+        <div class="blog-modal-content page-scroll">
+            <button class="blog-close">×</button>
+
+            <h2 id="blog-title"></h2>
+            <div id="blog-content"></div>
+
+        </div>
+    </div>
+
+    <!-- Prism JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- Linguagens que você usa -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-http.min.js"></script>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
