@@ -1066,18 +1066,25 @@ const scrollBtn = document.querySelector('.scroll-down-fixed');
 const end = document.getElementById('fim');
 
 if (scrollBtn && end) {
+
+  // clique continua funcionando
   scrollBtn.addEventListener('click', (e) => {
     e.preventDefault();
     end.scrollIntoView({ behavior: 'smooth' });
   });
 
-  window.addEventListener('scroll', () => {
-    const reachedEnd =
-      window.innerHeight + window.scrollY >= document.body.offsetHeight - 120;
+  // OBSERVADOR
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      scrollBtn.classList.toggle('hidden', entry.isIntersecting);
+    },
+    {
+      root: null,
+      threshold: 0.2 // já some antes de chegar totalmente
+    }
+  );
 
-    scrollBtn.style.opacity = reachedEnd ? '0' : '1';
-    scrollBtn.style.pointerEvents = reachedEnd ? 'none' : 'auto';
-  });
+  observer.observe(end);
 }
 
 /* =========================
@@ -1102,4 +1109,48 @@ toggleBtn.addEventListener('click', () => {
 
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
+
+const projectsCarousel = document.querySelector('.projects-horizontal');
+const blogsCarousel = document.querySelector('.blogs-horizontal');
+const projectHint = document.querySelector('.project-hint');
+const blogHint = document.querySelector('.blog-hint');
+
+if (projectsCarousel && projectHint) {
+  const cards = projectsCarousel.querySelectorAll('.project-card');
+  const lastCard = cards[cards.length - 1];
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      projectHint.classList.toggle('hidden', entry.isIntersecting);
+    },
+    {
+      root: projectsCarousel,      // 🔴 observa dentro do carrossel
+      threshold: 0.6       // quando a maior parte aparecer
+    }
+  );
+
+  if (lastCard) {
+    observer.observe(lastCard);
+  }
+}
+
+if (blogsCarousel && blogHint) {
+  const cards = blogsCarousel.querySelectorAll('.blog-card');
+  const lastCard = cards[cards.length - 1];
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      blogHint.classList.toggle('hidden', entry.isIntersecting);
+    },
+    {
+      root: blogsCarousel,      // 🔴 observa dentro do carrossel
+      threshold: 0.6       // quando a maior parte aparecer
+    }
+  );
+
+  if (lastCard) {
+    observer.observe(lastCard);
+  }
+}
+
 

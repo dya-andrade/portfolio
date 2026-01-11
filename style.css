@@ -361,8 +361,7 @@ footer .paw {
 
 body.dark .paw {
   filter:
-    drop-shadow(0 0 6px rgba(247, 200, 224, 0.55))
-    brightness(1.1);
+    drop-shadow(0 0 6px rgba(247, 200, 224, 0.55)) brightness(1.1);
 }
 
 /* 🐱 Cat animation */
@@ -2473,10 +2472,6 @@ body.dark .hero-editorial .hero-meta {
   background: none;
 }
 
-body.dark .intro {
-  color: #cd3b3b;
-}
-
 body.dark .readme-blog {
   color: #d1d5db;
 }
@@ -2519,7 +2514,8 @@ body.dark .readme-blog h3 {
 }
 
 body.dark .readme-blog p,
-body.dark .readme-blog li {
+body.dark .readme-blog li,
+.intro:not() {
   color: #d9d9d9;
 }
 
@@ -2873,10 +2869,10 @@ body.dark .blog-highlight {
 /* 💡 Desktop: deixa o botão dentro do card */
 .blog-close {
   position: fixed;
-  top: 16px;
+  top: 40px;
   right: 16px;
 }
-  
+
 .theme-toggle.hidden-by-modal {
   opacity: 0;
   transform: scale(0.8);
@@ -2885,6 +2881,15 @@ body.dark .blog-highlight {
 }
 
 @media (max-width: 500px) {
+  .blog-title {
+    font-size: 1.2em;
+  }
+
+  .blog-close {
+    width: 32px;
+    height: 32px;
+  }
+
   .project-links {
     margin-top: 15px;
     justify-content: flex-end;
@@ -3073,14 +3078,16 @@ body.dark .scroll-down-fixed {
   position: fixed;
   inset: 0;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* iOS */
+  -webkit-overflow-scrolling: touch;
+  /* iOS */
 }
 
 .carousel-track {
   touch-action: pan-x pan-y;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overscroll-behavior: none;
 }
@@ -3091,4 +3098,105 @@ html, body {
 
 .carousel-track {
   padding-bottom: 32px;
+}
+
+.scroll-down-fixed {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.scroll-down-fixed.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+}
+
+.project-hint,
+.blog-hint {
+  position: absolute;
+  right: 12px;
+  bottom: -32px;
+
+  font-size: 3em;
+  font-weight: 900;
+  color: rgba(124, 92, 255, 0.7);
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.project-hint.hidden,
+.blog-hint.hidden {
+  opacity: 0;
+  transform: translateX(10px);
+  pointer-events: none;
+}
+
+/* Container do modal */
+.blog-modal-content {
+  margin: 6vh auto;
+  padding: clamp(20px, 4vw, 36px);
+
+  max-height: 88vh;
+  overflow-y: auto;
+
+  border-radius: 18px;
+}
+
+.blog-modal-content {
+  position: relative;
+}
+
+/* Faixa roxa no topo */
+.blog-modal-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg,
+      rgba(124, 92, 255, 0.15),
+      rgba(124, 92, 255, 0.55),
+      rgba(124, 92, 255, 0.15));
+
+  border-radius: 12px 12px 0 0;
+}
+
+body.dark .blog-modal-content::before {
+  background: linear-gradient(90deg,
+      rgba(124, 92, 255, 0.2),
+      rgba(180, 160, 255, 0.65),
+      rgba(124, 92, 255, 0.2));
+}
+
+body:not(.dark) .blog-modal-content::before {
+  background: linear-gradient(90deg,
+      rgba(124, 92, 255, 0.12),
+      rgba(124, 92, 255, 0.35),
+      rgba(124, 92, 255, 0.12));
+}
+
+.blog-modal-content {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.35),
+    0 -6px 24px rgba(124, 92, 255, 0.08);
+}
+
+body.dark .intro {
+  color: #c474ffb3;
+}
+
+.intro {
+  color: #fd0f7c;
+  font-weight: 400;
+}
+
+body.dark .closing {
+  color: #94abcf;
+}
+
+body.dark .credits {
+  color: #f7c8e08f;
 }
