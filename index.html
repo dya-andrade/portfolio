@@ -33,6 +33,10 @@
 
 <body>
 
+    <a href="#fim" class="scroll-down-fixed" aria-label="Ir para o final da página">
+        ↓
+    </a>
+
     <header class="hero hero-editorial">
         <div class="hero-inner">
 
@@ -226,50 +230,82 @@
         <section class="block fade">
             <h2 class="section-title">Formação</h2>
 
-            <div class="card">
-                <h3>Pós-graduação em Arquitetura de Software Distribuído</h3>
-                <span>PUC Minas • Início em 2026</span>
-                <p>
-                    Foco em sistemas distribuídos, arquitetura backend
-                    e escalabilidade.
-                </p>
+            <div class="card education-card">
+                <div class="education-logo">
+                    <img src="logos/puc.png" alt="PUC Minas logo">
+                </div>
+
+                <div class="education-content">
+                    <h3>Pós-graduação em Arquitetura de Software Distribuído</h3>
+                    <span>PUC Minas • Início em 2026</span>
+                    <p>
+                        Foco em sistemas distribuídos, arquitetura backend
+                        e escalabilidade.
+                    </p>
+                </div>
             </div>
 
-            <div class="card">
-                <h3>Bacharelado em Ciência da Computação</h3>
-                <span>UNIP • 2018 – 2022</span>
+            <div class="card education-card">
+                <div class="education-logo default">
+                    <span class="education-icon">🎓</span>
+                </div>
+
+                <div class="education-content">
+                    <h3>Bacharelado em Ciência da Computação</h3>
+                    <span>UNIP • 2018 – 2022</span>
+                </div>
             </div>
+
         </section>
 
         <section class="block fade">
-            <h2 class="section-title">Experiência</h2>
+            <h2 class="section-title">Experiências</h2>
 
-            <article class="card destaque">
-                <h3>PicPay — Open Finance</h3>
-                <span>2025 • Atual</span>
-                <p>
-                    Transferências Inteligentes, fluxos de consentimento
-                    e cash-in que transacionam milhões mensalmente.
-                </p>
+            <article class="card destaque experience-card">
+                <div class="experience-logo">
+                    <img src="logos/picpay.png" alt="PicPay logo">
+                </div>
+
+                <div class="experience-content">
+                    <h3>PicPay — Open Finance</h3>
+                    <span>2025 • Atual</span>
+                    <p>
+                        Transferências Inteligentes, fluxos de consentimento
+                        e cash-in que transacionam milhões mensalmente.
+                    </p>
+                </div>
             </article>
 
-            <article class="card">
-                <h3>PicPay — Time Carteira</h3>
-                <span>2022 • 2024</span>
-                <p>
-                    Microsserviços da Carteira v2 e v3,
-                    Java, WebFlux, Kotlin, Kafka e Redis.
-                </p>
+            <article class="card experience-card">
+                <div class="experience-logo">
+                    <img src="logos/picpay.png" alt="PicPay logo">
+                </div>
+
+                <div class="experience-content">
+                    <h3>PicPay — Time Carteira</h3>
+                    <span>2022 • 2024</span>
+                    <p>
+                        Microsserviços da Carteira v2 e v3,
+                        Java, WebFlux, Kotlin, Kafka e Redis.
+                    </p>
+                </div>
             </article>
 
-            <article class="card">
-                <h3>One - Inteligência Tributária</h3>
-                <span>2021 • 2022</span>
-                <p>
-                    Sistemas corporativos em Java
-                    e integrações com APIs.
-                </p>
+            <article class="card experience-card">
+                <div class="experience-logo default">
+                    <span class="company-icon">🏢</span>
+                </div>
+
+                <div class="experience-content">
+                    <h3>One — Inteligência Tributária</h3>
+                    <span>2021 • 2022</span>
+                    <p>
+                        Sistemas corporativos em Java
+                        e integrações com APIs.
+                    </p>
+                </div>
             </article>
+
         </section>
 
         <section class="block fade">
@@ -325,14 +361,15 @@
                             <h3>Jobs de Pagamento</h3>
 
                             <p>
-                                Evolução de jobs críticos com foco em retry, DLT,
-                                monitoramento e redução de falhas em produção.
+                                Evolução de fluxos assíncronos baseados em eventos, com foco em
+                                confiabilidade, tratamento de falhas, estratégias de retry e
+                                melhoria de observabilidade em produção.
                             </p>
 
                             <div class="project-tags">
                                 <span class="tag">Kafka</span>
-                                <span class="tag">Retry</span>
-                                <span class="tag">DLT</span>
+                                <span class="tag">Retry Strategy</span>
+                                <span class="tag">Liquidação de Pix</span>
                             </div>
 
                             <div class="project-footer">
@@ -352,7 +389,7 @@
                             <h3>Observabilidade & Incidentes</h3>
 
                             <p>
-                                Atuação contínua em incidentes, análise de métricas,
+                                Atuação contínua em incidentes, análise de métricas/alertas,
                                 logs e traces com Dynatrace e OpenSearch.
                             </p>
 
@@ -365,6 +402,74 @@
                             <div class="project-footer">
                                 <span class="level level-pleno">Pleno</span>
                                 <span class="scope scope-empresarial">Empresarial</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Projeto — TI Jobs (TCC) -->
+                    <article class="project-card">
+                        <div class="project-media gallery">
+                            <!-- INDEX -->
+                            <img src="projects/ti-jobs/index-1.png" alt="TI Jobs - Home" class="expandable" />
+                            <img src="projects/ti-jobs/index-2.png" alt="TI Jobs - Últimas vagas" class="expandable" />
+
+                            <!-- VER VAGAS -->
+                            <img src="projects/ti-jobs/vagas-1.png" alt="TI Jobs - Lista de vagas" class="expandable" />
+                            <img src="projects/ti-jobs/vagas-2.png" alt="TI Jobs - Detalhes da vaga"
+                                class="expandable" />
+
+                            <!-- LOGIN / CADASTRO -->
+                            <img src="projects/ti-jobs/login.png" alt="TI Jobs - Login" class="expandable" />
+                            <img src="projects/ti-jobs/cadastro.png" alt="TI Jobs - Cadastro" class="expandable" />
+
+                            <!-- DASHBOARD -->
+                            <img src="projects/ti-jobs/dashboard-1.png" alt="TI Jobs - Dashboard candidato"
+                                class="expandable" />
+                            <img src="projects/ti-jobs/dashboard-2.png" alt="TI Jobs - Dashboard empresa"
+                                class="expandable" />
+
+                            <!-- PERFIL -->
+                            <img src="projects/ti-jobs/candidaturas.png" alt="TI Jobs - Candidaturas"
+                                class="expandable" />
+                            <img src="projects/ti-jobs/perfil.png" alt="TI Jobs - Perfil" class="expandable" />
+
+                            <!-- CADASTRAR VAGA -->
+                            <img src="projects/ti-jobs/cadastrar-vaga.png" alt="TI Jobs - Cadastrar vaga"
+                                class="expandable" />
+
+                            <!-- ROADMAP -->
+                            <img src="projects/ti-jobs/roadmap.png" alt="TI Jobs - Roadmap de estudos"
+                                class="expandable" />
+                        </div>
+
+                        <div class="project-body">
+                            <h3>TI Jobs — Plataforma de Vagas para Desenvolvedores</h3>
+
+                            <p>
+                                Projeto pessoal desenvolvido como <strong>TCC da UNIP</strong>.
+                                Plataforma web responsiva para divulgação de vagas, com foco em
+                                empregabilidade na área de tecnologia.
+                            </p>
+
+                            <div class="project-tags">
+                                <span class="tag">Java</span>
+                                <span class="tag">Spring Boot</span>
+                                <span class="tag">PrimeFaces</span>
+                                <span class="tag">MySQL</span>
+                            </div>
+
+                            <div class="project-footer">
+                                <span class="level level-pleno">Concluído</span>
+                                <span class="scope scope-pessoal">Acadêmico</span>
+
+                                <div class="project-links">
+                                    <a href="https://github.com/dya-andrade/ti-jobs" target="_blank">
+                                        GitHub
+                                    </a>
+                                    <a href="https://www.youtube.com/watch?v=gZIAYIR4_8I" target="_blank">
+                                        Apresentação
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -414,21 +519,21 @@
                     <!-- Blog 2 -->
                     <article class="blog-card" data-blog="idempotencia">
                         <div class="blog-media">
-                            <img src="blogs/default.png" alt="Idempotência" />
+                            <img src="blogs/default-idempotencia.png" alt="Idempotência" />
                         </div>
                         <div class="blog-body">
-                            <h3>Idempotência em Pagamentos</h3>
+                            <h3>Idempotência e Lock</h3>
                             <p>Como evitar duplicidade em sistemas financeiros.</p>
 
                             <div class="blog-tags">
-                                <span class="tag">Resiliência</span>
-                                <span class="tag">OpenSearch</span>
-                                <span class="tag">Incidentes</span>
+                                <span class="tag">Consistência de Dados</span>
+                                <span class="tag">Idempotência</span>
+                                <span class="tag">Locking</span>
                             </div>
 
                             <div class="blog-footer">
                                 <span class="status andamento">Em andamento</span>
-                                <span class="scope scope-pessoal">Pessoal</span>
+                                <span class="scope scope-referencia">Referência</span>
                             </div>
                         </div>
 
@@ -440,18 +545,39 @@
                             <img src="blogs/arquitetura-java.jpg" alt="Arquitetura Java" />
                         </div>
                         <div class="blog-body">
-                            <h3>Arquitetura Java sem modismo</h3>
+                            <h3>Arquitetura Java sem Modismo</h3>
                             <p>Escolhendo a arquitetura certa para o momento.</p>
 
                             <div class="blog-tags">
-                                <span class="tag">Resiliência</span>
-                                <span class="tag">OpenSearch</span>
-                                <span class="tag">Incidentes</span>
+                                <span class="tag">Monólito Modular</span>
+                                <span class="tag">Clean Architecture</span>
+                                <span class="tag">Vertical Slice</span>
                             </div>
 
                             <div class="blog-footer">
                                 <span class="status andamento">Em andamento</span>
                                 <span class="scope scope-referencia">Referência</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Blog 4 -->
+                    <article class="blog-card" data-blog="idempotencia-kafka">
+                        <div class="blog-media">
+                            <img src="blogs/default-kafka.png" alt="Idempotência Kafka" />
+                        </div>
+                        <div class="blog-body">
+                            <h3>Desafio Técnico com Kafka em Produção</h3>
+                            <p>Como evitar duplicidade em sistemas financeiros.</p>
+                            <div class="blog-tags">
+                                <span class="tag">Idempotência</span>
+                                <span class="tag">Resiliência</span>
+                                <span class="tag">Pagamentos</span>
+                            </div>
+
+                            <div class="blog-footer">
+                                <span class="status concluido">Concluído</span>
+                                <span class="scope scope-pessoal">Pessoal</span>
                             </div>
                         </div>
                     </article>
@@ -490,10 +616,6 @@
         <p>© 2026 • Dyane Andrade Araújo <span class="paw">🐾</span></p>
     </footer>
 
-    <div id="lightbox">
-        <img id="lightbox-img" alt="Imagem ampliada" />
-    </div>
-
     <div id="carousel-modal" class="carousel-modal">
         <button class="carousel-close">×</button>
 
@@ -516,6 +638,8 @@
 
         </div>
     </div>
+
+    <div id="fim"></div>
 
     <!-- Prism JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

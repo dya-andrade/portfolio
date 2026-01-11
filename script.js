@@ -147,11 +147,14 @@ let currentIndex = 0;
 let images = [];
 
 // abre o carrossel
-function openCarousel(imgElement) {
-  const project = imgElement.closest(".project-media");
-  images = Array.from(project.querySelectorAll("img"));
+function openCarouselFromProject(projectEl, startIndex = 0) {
+  const media = projectEl.querySelector(".project-media");
+  if (!media) return;
 
-  currentIndex = images.indexOf(imgElement);
+  images = Array.from(media.querySelectorAll("img"));
+  if (!images.length) return;
+
+  currentIndex = startIndex;
 
   renderCarousel();
   modal.classList.add("active");
@@ -192,10 +195,25 @@ function closeCarousel() {
 }
 
 // bind nas imagens
-document.querySelectorAll(".project-media img").forEach(img => {
+document.querySelectorAll(".project-media img").forEach((img, index) => {
   img.style.cursor = "zoom-in";
-  img.addEventListener("click", () => openCarousel(img));
+
+  img.addEventListener("click", (e) => {
+    e.stopPropagation(); // ⛔ evita duplicar evento
+    const project = img.closest(".project-card");
+    openCarouselFromProject(project, index);
+  });
 });
+
+document.querySelectorAll(".project-body").forEach(body => {
+  body.style.cursor = "zoom-in";
+
+  body.addEventListener("click", () => {
+    const project = body.closest(".project-card");
+    openCarouselFromProject(project, 0);
+  });
+});
+
 
 // Scroll horizontal com mouse — BLOGS
 const blogs = document.querySelector('.blogs-horizontal');
@@ -462,18 +480,406 @@ Idempotency-Key: 9f8a7d6c-1234
     },
 
     "arquitetura-java": {
-      title: "Escolhendo Arquitetura Java",
+      title: "Como escolher a arquitetura certa para uma aplicação Java?",
       content: `
-<p>
-Não existe arquitetura perfeita.
-Existe a arquitetura certa para o momento.
-</p>
+     <div class="image-wrapper">
+  <img src="blogs/arquitetura-java.jpg"
+       alt="Arquitetura de Software Java"
+       class="pattern-image"
+       onclick="openImage(this.src)" />
+</div>
 
-<ul>
-  <li>Camadas → projetos pequenos</li>
-  <li>Monólito Modular → crescimento saudável</li>
-  <li>Microserviços → alta escala</li>
-</ul>
+<section class="readme-blog">
+
+  <p class="intro">
+    Escolher a arquitetura é uma das decisões mais importantes no início de um projeto.
+    Ela define como o sistema vai crescer, escalar e ser mantido ao longo do tempo.
+  </p>
+
+  <p>
+    A verdade é simples: <strong>não existe arquitetura perfeita</strong>.
+    Existe a arquitetura certa para o <strong>momento do sistema</strong>,
+    do <strong>time</strong> e do <strong>domínio</strong>.
+  </p>
+
+<h2>Arquiteturas clássicas no ecossistema Java</h2>
+
+<!-- CAMADAS -->
+<div class="architecture-block">
+  <h3>Arquitetura em Camadas (Layered Architecture)</h3>
+
+  <p>
+    Organização tradicional por responsabilidade técnica.
+    Muito comum em aplicações Spring Boot.
+    Funciona bem no início, mas tende a gerar alto acoplamento
+    conforme o sistema cresce.
+  </p>
+
+  <div class="code-block">
+<pre><code>
+com.example.payments
+│
+├── controller
+├── service
+├── repository
+└── model
+</code></pre>
+  </div>
+
+  <p><strong>Vantagens:</strong></p>
+  <ul>
+    <li>Simples de entender</li>
+    <li>Baixa curva de aprendizado</li>
+    <li>Boa para projetos pequenos</li>
+  </ul>
+
+  <p><strong>Desvantagens:</strong></p>
+  <ul>
+    <li>Alto acoplamento entre camadas</li>
+    <li>Dificulta evolução do domínio</li>
+    <li>Testes de negócio mais complexos</li>
+  </ul>
+</div>
+
+<!-- MONÓLITO MODULAR -->
+<div class="architecture-block">
+  <h3>Monólito Modular</h3>
+
+  <p>
+    Um único deploy, mas com módulos bem definidos.
+    Cada módulo representa um subdomínio do negócio.
+    É a forma mais segura de escalar sem cair cedo em microserviços.
+  </p>
+
+  <div class="code-block">
+<pre><code>
+com.example.payments
+│
+├── payment
+├── recurring
+├── refunds
+└── shared
+</code></pre>
+  </div>
+
+  <p><strong>Vantagens:</strong></p>
+  <ul>
+    <li>Boa separação de responsabilidades</li>
+    <li>Menor complexidade operacional</li>
+    <li>Base sólida para crescimento</li>
+  </ul>
+
+  <p><strong>Desvantagens:</strong></p>
+  <ul>
+    <li>Exige disciplina arquitetural</li>
+    <li>Sem cuidado, vira um monólito acoplado</li>
+  </ul>
+</div>
+
+<!-- HEXAGONAL -->
+<div class="architecture-block">
+  <h3>Hexagonal / Clean Architecture</h3>
+
+  <p>
+    Arquitetura centrada no domínio.
+    O core da aplicação não depende de frameworks,
+    banco de dados ou mensageria.
+  </p>
+
+  <div class="code-block">
+<pre><code>
+com.example.payments
+│
+├── domain
+│   ├── Payment
+│   └── PaymentRepository
+│
+├── application
+│   └── ProcessPaymentUseCase
+│
+├── adapters
+│   ├── web
+│   └── persistence
+│
+└── infrastructure
+</code></pre>
+  </div>
+
+  <p><strong>Vantagens:</strong></p>
+  <ul>
+    <li>Domínio protegido</li>
+    <li>Alta testabilidade</li>
+    <li>Ideal para longo prazo</li>
+  </ul>
+
+  <p><strong>Desvantagens:</strong></p>
+  <ul>
+    <li>Curva de aprendizado maior</li>
+    <li>Overengineering para sistemas simples</li>
+  </ul>
+</div>
+
+<!-- EVENT DRIVEN -->
+<div class="architecture-block">
+  <h3>Event-Driven Architecture</h3>
+
+  <p>
+    Comunicação baseada em eventos.
+    Serviços reagem a mudanças de estado,
+    em vez de chamadas síncronas.
+    Muito usada em pagamentos e sistemas financeiros.
+  </p>
+
+  <div class="code-block">
+<pre><code>
+PaymentCreatedEvent
+PaymentProcessedEvent
+PaymentFailedEvent
+</code></pre>
+  </div>
+
+  <p><strong>Vantagens:</strong></p>
+  <ul>
+    <li>Alta escalabilidade</li>
+    <li>Baixo acoplamento entre serviços</li>
+    <li>Boa resiliência</li>
+  </ul>
+
+  <p><strong>Desvantagens:</strong></p>
+  <ul>
+    <li>Debug mais complexo</li>
+    <li>Consistência eventual</li>
+    <li>Exige observabilidade madura</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2>Arquiteturas emergentes</h2>
+
+<!-- PACKAGE BY FEATURE -->
+<div class="architecture-block">
+  <h3>Package by Feature</h3>
+
+  <p>
+    Organização do código por funcionalidade.
+    Cada feature contém controller, service e repository.
+    Muito usada em monólitos bem organizados.
+  </p>
+
+  <div class="code-block">
+<pre><code>
+com.example.payments
+│
+├── payment
+│   ├── controller
+│   ├── service
+│   └── repository
+│
+└── recurring
+    ├── controller
+    ├── service
+    └── repository
+</code></pre>
+  </div>
+
+  <p><strong>Vantagens:</strong></p>
+  <ul>
+    <li>Alta coesão por funcionalidade</li>
+    <li>Facilita manutenção</li>
+  </ul>
+
+  <p><strong>Desvantagens:</strong></p>
+  <ul>
+    <li>Pode duplicar conceitos</li>
+    <li>Requer padronização</li>
+  </ul>
+</div>
+
+<!-- VERTICAL SLICE -->
+<div class="architecture-block">
+  <h3>Vertical Slice</h3>
+
+  <p>
+    Cada caso de uso é uma fatia vertical independente.
+    Muito alinhada a DDD, CQRS e sistemas orientados a fluxo.
+  </p>
+
+  <div class="code-block">
+<pre><code>
+com.example.payments
+│
+├── create-payment
+├── process-payment
+└── update-status
+</code></pre>
+  </div>
+
+  <p><strong>Vantagens:</strong></p>
+  <ul>
+    <li>Altíssima coesão</li>
+    <li>Testes simples</li>
+    <li>Excelente para pagamentos</li>
+  </ul>
+
+  <p><strong>Desvantagens:</strong></p>
+  <ul>
+    <li>Menos familiar</li>
+    <li>Verbosidade inicial</li>
+  </ul>
+</div>
+
+  <h2>Regra geral</h2>
+
+  <div class="blog-highlight">
+    <p>
+      Comece simples.
+      Organize bem.
+      Só adicione complexidade quando ela resolver um problema real.
+      Arquitetura boa é a que o time consegue manter.
+    </p>
+  </div>
+
+  <h2>Exemplo prático</h2>
+
+  <p>
+    Mantive um repositório com exemplos reais de organização arquitetural
+    aplicados a um domínio de pagamentos:
+  </p>
+
+  <p>
+    👉 <a href="https://github.com/dya-andrade/architectures-payment-initiator"
+          target="_blank"
+          rel="noopener noreferrer">
+      architectures-payment-initiator (GitHub)
+    </a>
+  </p>
+
+  <div class="credits">
+    <p>
+      Referências:
+      <br>
+      <a href="https://www.linkedin.com/posts/lucas-amorim-45183212a_como-escolher-a-arquitetura-certa-para-uma-activity-7397114642348785664-pbXO"
+         target="_blank" rel="noopener noreferrer">
+        Lucas Amorim — Como escolher a arquitetura certa
+      </a>
+      <br>
+      <a href="https://www.techleads.club/c/blog/quando-usar-arquiteturas-emergentes-package-by-feature-vertical-slice-e-modularizacao"
+         target="_blank" rel="noopener noreferrer">
+        Tech Leads Club — Arquiteturas emergentes
+      </a>
+      <br>
+      <a href="https://medium.com/sahibinden-technology/package-by-layer-vs-package-by-feature-7e89cde2ae3a"
+         target="_blank" rel="noopener noreferrer">
+        Medium — Package by Layer vs Package by Feature
+      </a>
+    </p>
+  </div>
+
+</section>
+`
+    },
+    
+    "idempotencia-kafka": {
+      title: "Desafio técnico com Kafka em produção",
+      content: `
+     <section class="readme-blog">
+
+  <p class="intro">
+    Recentemente, enfrentei um desafio interessante ao trabalhar com Kafka em um ambiente
+    de alta escalabilidade. O objetivo era garantir que os dados fossem processados de
+    forma eficiente, ordenada e confiável, mesmo sob carga elevada e com múltiplos
+    consumidores concorrentes.
+  </p>
+
+  <h2>Contexto</h2>
+  <p>
+    Utilizávamos Kafka para orquestrar eventos que representavam mudanças de estado em
+    um fluxo de negócio que exigia alta performance. Alguns requisitos principais eram:
+  </p>
+  <ul>
+    <li>Processar eventos em tempo real.</li>
+    <li>Garantir <b>ordem sequencial</b> quando necessário.</li>
+    <li>Minimizar duplicação de processamento.</li>
+    <li>Manter <b>observabilidade e rastreabilidade</b> dos eventos.</li>
+  </ul>
+
+  <h2>O problema observado</h2>
+  <p>
+    Durante picos de carga, notamos um comportamento inesperado relacionado a
+    <strong>duplicação de eventos</strong> e <strong>reordenação</strong> de mensagens,
+    que impactavam negativamente a lógica de domínio.
+  </p>
+  <p>
+    Alguns sintomas foram:
+  </p>
+  <ul>
+    <li>Mensagens processadas fora da ordem esperada.</li>
+    <li>Consumidores relatando eventos repetidos.</li>
+    <li>Latência intermitente em partições específicas.</li>
+  </ul>
+
+  <h2>Soluções consideradas</h2>
+
+  <h3>1. Idempotência no produtor</h3>
+  <p>
+    Habilitar a idempotência nativa do Kafka no produtor para garantir que uma mesma
+    mensagem não fosse escrita mais de uma vez em caso de reenvio.
+  </p>
+
+  <div class="code-block">
+<pre><code class="language-java">
+// Exemplo de configuração de produtor idempotente
+Properties props = new Properties();
+props.put("enable.idempotence", "true");
+</code></pre>
+  </div>
+
+  <h3>2. Chaves e particionamento</h3>
+  <p>
+    Definir chaves consistentes para particionamento de eventos relevantes,
+    assegurando que mensagens de mesma entidade caíssem na mesma partição.
+  </p>
+
+  <div class="code-block">
+<pre><code class="language-java">
+// Exemplo de envio de mensagem com chave
+producer.send(
+  new ProducerRecord<>("topic-name", key, value)
+);
+</code></pre>
+  </div>
+
+  <h3>3. Ajustes de consumidores</h3>
+  <p>
+    Discutimos estratégias de rebalancing, grupos de consumidores e controle de offset
+    para evitar reprocessamentos indesejados.
+  </p>
+
+  <h2>Resultado</h2>
+  <p>
+    Combinando idempotência no produtor, uso consistente de chaves para particionamento
+    e monitoramento mais apurado de partições, conseguimos reduzir significativamente
+    os sintomas observados. A latência se estabilizou e a ordem esperada de eventos foi
+    mantida na maioria dos fluxos críticos.
+  </p>
+
+  <h2>Aprendizados</h2>
+  <ul>
+    <li>A idempotência é essencial para produção confiável em Kafka.</li>
+    <li>Particionamento e chave bem definidos fazem toda diferença em ordering.</li>
+    <li>Observabilidade (métricas + logs) é crucial para diagnosticar problemas em tempo real.</li>
+  </ul>
+
+  <div class="credits">
+    <p>
+      Este relato foi redigido de forma genérica para resguardar
+      informações sensíveis do projeto, mas compila desafios comuns
+      enfrentados em sistemas que utilizam Kafka em produção.
+    </p>
+  </div>
+
+</section>
 `
     }
   };
@@ -546,4 +952,22 @@ function closeImage() {
   const modal = document.getElementById('image-modal');
   modal.classList.remove('active');
   document.body.style.overflow = ''; // volta scroll
+}
+
+const scrollBtn = document.querySelector('.scroll-down-fixed');
+const end = document.getElementById('fim');
+
+if (scrollBtn && end) {
+  scrollBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    end.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', () => {
+    const reachedEnd =
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 120;
+
+    scrollBtn.style.opacity = reachedEnd ? '0' : '1';
+    scrollBtn.style.pointerEvents = reachedEnd ? 'none' : 'auto';
+  });
 }
