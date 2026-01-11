@@ -2813,11 +2813,11 @@ body.dark .blog-highlight {
 
 /* 💡 Desktop: deixa o botão dentro do card */
 .blog-close {
-  position: absolute;
+  position: fixed;
   top: 16px;
   right: 16px;
 }
-
+  
 .theme-toggle.hidden-by-modal {
   opacity: 0;
   transform: scale(0.8);
