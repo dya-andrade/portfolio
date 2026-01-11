@@ -137,7 +137,7 @@
                             <span class="skill-icon">🧬</span>
                             <div class="skill-info">
                                 <strong>Kotlin</strong>
-                                <span class="skill-level intermediate">Intermediário</span>
+                                <span class="skill-level advanced">Avançado</span>
                             </div>
                         </li>
 
@@ -153,7 +153,7 @@
                             <span class="skill-icon">🏗️</span>
                             <div class="skill-info">
                                 <strong>Arquitetura & Microsserviços</strong>
-                                <span class="skill-level advanced">Avançado</span>
+                                <span class="skill-level intermediate">Intermediário</span>
                             </div>
                         </li>
 
@@ -177,7 +177,7 @@
                             <span class="skill-icon">📨</span>
                             <div class="skill-info">
                                 <strong>Kafka (DLQ, Retry, Async)</strong>
-                                <span class="skill-level advanced">Avançado</span>
+                                <span class="skill-level intermediate">Intermediário</span>
                             </div>
                         </li>
 
@@ -185,7 +185,7 @@
                             <span class="skill-icon">📊</span>
                             <div class="skill-info">
                                 <strong>Observabilidade & Incidentes</strong>
-                                <span class="skill-level advanced">Avançado</span>
+                                <span class="skill-level intermediate">Intermediário</span>
                             </div>
                         </li>
 
@@ -193,7 +193,7 @@
                             <span class="skill-icon">🧪</span>
                             <div class="skill-info">
                                 <strong>Testes (Unitários / Integração)</strong>
-                                <span class="skill-level intermediate">Intermediário</span>
+                                <span class="skill-level advanced">Avançado</span>
                             </div>
                         </li>
 
@@ -747,13 +747,24 @@
         <div class="carousel-track"></div>
     </div>
 
+    <div id="certificates-modal" class="carousel-modal">
+        <button class="carousel-close">✕</button>
+
+        <div class="carousel-track">
+            <img id="certificate-modal-img" />
+        </div>
+    </div>
+
     <div id="image-modal" class="image-modal" onclick="closeImage()">
         <img id="modal-img" />
     </div>
 
-    <div id="blog-modal">
-        <div class="blog-modal-content page-scroll">
-            <button class="blog-close">×</button>
+    <div id="blog-modal" aria-hidden="true">
+        <div class="blog-modal-content page-scroll" role="dialog" aria-modal="true">
+
+            <button class="blog-close" aria-label="Fechar conteúdo">
+                ✕
+            </button>
 
             <h2 id="blog-title"></h2>
             <div id="blog-content"></div>

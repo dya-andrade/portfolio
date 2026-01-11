@@ -19,10 +19,22 @@ body.dark {
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   font-family: Inter, sans-serif;
   background: var(--bg);
   color: var(--text);
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+header.hero {
+  overflow-x: hidden;
 }
 
 .actions {
@@ -830,6 +842,82 @@ body::before {
 }
 
 /* Fechar */
+.certificates-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.certificates-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.certificates-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 96vw;
+  max-height: 92vh;
+}
+
+.carousel-track img {
+  max-width: 96vw;
+  max-height: 92vh;
+
+  object-fit: contain;
+  border-radius: 18px;
+
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+
+/* Navegação */
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.85);
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.carousel-nav:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav.left {
+  left: 32px;
+}
+
+.carousel-nav.right {
+  right: 32px;
+}
+
+/* Fechar */
 .carousel-close {
   position: absolute;
   top: 24px;
@@ -837,9 +925,22 @@ body::before {
 
   background: none;
   border: none;
+  font-weight: 400;
   font-size: 2.2rem;
   color: #fff;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .carousel-track img {
+    max-width: 68vw;
+  }
+  
+  .carousel-close {
+    top: 16px;
+    right: 16px;
+    font-size: 1.8rem;
+  }
 }
 
 .scroll-btn {
@@ -942,6 +1043,12 @@ body::before {
     align-items: flex-start;
     gap: 6px;
   }
+}
+
+.blog-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 45%
 }
 
 textarea {
@@ -1096,8 +1203,13 @@ textarea:focus:invalid {
 }
 
 /* ======================================================
-   HERO EDITORIAL (sobrescreve o antigo)
+   HERO EDITORIAL
 ====================================================== */
+.hero {
+  width: 100%;
+  max-width: 100%;
+}
+
 header.hero {
   overflow: hidden;
   position: relative;
@@ -1144,6 +1256,8 @@ header.hero::before {
     radial-gradient(circle at 50% 25%, rgba(124, 92, 255, 0.18) 10%, transparent 12%),
     radial-gradient(circle at 70% 35%, rgba(124, 92, 255, 0.18) 10%, transparent 12%),
     radial-gradient(circle at 85% 55%, rgba(124, 92, 255, 0.18) 9%, transparent 11%);
+
+  animation: pawWiggle 2.8s ease-in-out infinite;
 }
 
 header.hero.hero-editorial {
@@ -1152,7 +1266,7 @@ header.hero.hero-editorial {
 
 .hero-editorial .hero-inner {
   max-width: 980px;
-  margin: 0 auto;
+  margin: 10px auto;
   text-align: center;
 }
 
@@ -1516,7 +1630,7 @@ header.hero.hero-editorial {
 }
 
 .blog-close {
-  position: absolute;
+  position: fixed;
   top: 18px;
   right: 18px;
 
@@ -2099,8 +2213,8 @@ header.hero.hero-editorial {
   right: 32px;
   z-index: 999;
 
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
 
   display: flex;
@@ -2653,4 +2767,90 @@ body.dark .blog-highlight {
 
 .badge-verify:hover {
   text-decoration: underline;
+}
+
+#blog-modal.show {
+  display: flex;
+}
+
+/* 🔴 BOTÃO FECHAR */
+.blog-close {
+  position: fixed;
+  /* 👈 importante para mobile */
+  top: 16px;
+  right: 16px;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+  border: none;
+
+  background: rgb(124 124 124 / 10%);
+  color: #f578e9c9;
+
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 10000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.blog-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.blog-close:active {
+  transform: scale(0.92);
+}
+
+/* 💡 Desktop: deixa o botão dentro do card */
+.blog-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.theme-toggle.hidden-by-modal {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (max-width: 500px) {
+  .project-links {
+    margin-top: 15px;
+    justify-content: flex-end;
+  }
+
+  .project-footer {
+    display: block;
+  }
+
+  .project-body {
+    height: 80%;
+  }
+}
+
+.theme-toggle,
+.scroll-down-fixed {
+  max-width: calc(100vw - 16px);
+}
+
+body.dark .skill-level.advanced {
+  background: rgb(172 159 225 / 15%);
+  color: #826cf3;
+}
+
+body.dark .skill-level.intermediate {
+  background: rgba(255, 193, 7, 0.18);
+  color: #c1ad13;
 }

@@ -151,21 +151,7 @@ function openCarouselFromProject(projectEl, startIndex = 0) {
   const media = projectEl.querySelector(".project-media");
   if (!media) return;
 
-  images = Array.from(media.querySelectorAll("img"));
-  if (!images.length) return;
-
-  currentIndex = startIndex;
-
-  renderCarousel();
-  modal.classList.add("active");
-  document.body.style.overflow = "hidden";
-}
-
-function openCarouselFromCertificate(projectEl, startIndex = 0) {
-  const media = projectEl.querySelector(".certificate-media");
-  if (!media) return;
-
-  images = Array.from(media.querySelectorAll("img"));
+  images = Array.from(media.querySelectorAll(".expandable"));
   if (!images.length) return;
 
   currentIndex = startIndex;
@@ -208,45 +194,84 @@ function closeCarousel() {
   document.body.style.overflow = "";
 }
 
+// =========================
+// MODAL DE CERTIFICADOS
+// =========================
+const certificatesModal = document.getElementById("certificates-modal");
+const certificateImg = document.getElementById("certificate-modal-img");
+const certificatesClose = certificatesModal.querySelector(".carousel-close");
+
+function openCertificateModal(imgSrc) {
+  certificateImg.src = imgSrc;
+  certificatesModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeCertificateModal() {
+  certificatesModal.classList.remove("active");
+  certificateImg.src = "";
+  document.body.style.overflow = "";
+}
+
+certificatesClose.addEventListener("click", closeCertificateModal);
+
+certificatesModal.addEventListener("click", (e) => {
+  if (e.target === certificatesModal) {
+    closeCertificateModal();
+  }
+});
+
 // bind nas imagens
-document.querySelectorAll(".project-media img").forEach((img, index) => {
-  img.style.cursor = "zoom-in";
+document.querySelectorAll(".project-card, .certificate-card").forEach(card => {
+  card.style.cursor = "zoom-in";
 
-  img.addEventListener("click", (e) => {
-    e.stopPropagation(); // ⛔ evita duplicar evento
-    const project = img.closest(".project-card");
-    openCarouselFromProject(project, index);
+  card.addEventListener("click", (e) => {
+    const isProject = card.classList.contains("project-card");
+    const mediaSelector = isProject ? ".project-media" : ".certificate-media";
+
+    const media = card.querySelector(mediaSelector);
+    if (!media) return;
+
+    const images = Array.from(media.querySelectorAll("img"));
+    if (!images.length) return;
+
+document.querySelectorAll(".project-card, .certificate-card").forEach(card => {
+  card.style.cursor = "zoom-in";
+
+  card.addEventListener("click", (e) => {
+    const isProject = card.classList.contains("project-card");
+    const mediaSelector = isProject ? ".project-media" : ".certificate-media";
+
+    const media = card.querySelector(mediaSelector);
+    if (!media) return;
+
+    const images = Array.from(media.querySelectorAll("img"));
+    if (!images.length) return;
+
+    const clickedImg = e.target.closest("img") || images[0];
+
+    if (!clickedImg) return;
+
+    const startIndex = images.indexOf(clickedImg);
+
+    if (isProject) {
+      openCarouselFromProject(card, startIndex);
+    } else {
+      openCertificateModal(clickedImg.src);
+    }
   });
 });
+    if (!clickedImg) return;
 
-document.querySelectorAll(".project-body").forEach(body => {
-  body.style.cursor = "zoom-in";
+    const startIndex = images.indexOf(clickedImg);
 
-  body.addEventListener("click", () => {
-    const project = body.closest(".project-card");
-    openCarouselFromProject(project, 0);
+    if (isProject) {
+      openCarouselFromProject(card, startIndex);
+    } else {
+      openCertificateModal(clickedImg.src);
+    }
   });
 });
-
-document.querySelectorAll(".certificate-media img").forEach((img, index) => {
-  img.style.cursor = "zoom-in";
-
-  img.addEventListener("click", (e) => {
-    e.stopPropagation(); // ⛔ evita duplicar evento
-    const project = img.closest(".certificate-card");
-    openCarouselFromCertificate(project, index);
-  });
-});
-
-document.querySelectorAll(".certificate-body").forEach(body => {
-  body.style.cursor = "zoom-in";
-
-  body.addEventListener("click", () => {
-    const project = body.closest(".certificate-card");
-    openCarouselFromCertificate(project, 0);
-  });
-});
-
 
 // Scroll horizontal com mouse — BLOGS
 const blogs = document.querySelector('.blogs-horizontal');
@@ -813,7 +838,7 @@ com.example.payments
 </section>
 `
     },
-    
+
     "idempotencia-kafka": {
       title: "Desafio técnico com Kafka em produção",
       content: `
@@ -918,36 +943,71 @@ producer.send(
     }
   };
 
-  const modal = document.getElementById("blog-modal");
-  const titleEl = document.getElementById("blog-title");
-  const contentEl = document.getElementById("blog-content");
-  const closeBtn = document.querySelector(".blog-close");
+  const blogModal = document.getElementById("blog-modal");
+const titleEl = document.getElementById("blog-title");
+const contentEl = document.getElementById("blog-content");
+const blogCloseBtn = document.querySelector(".blog-close");
+const themeToggle = document.querySelector(".theme-toggle");
 
-  document.querySelectorAll(".blog-card").forEach(card => {
-    card.addEventListener("click", () => {
-      const blog = blogs[card.dataset.blog];
-      if (!blog) return;
+/* =========================
+   ABRIR MODAL
+========================= */
+document.querySelectorAll(".blog-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const blog = blogs[card.dataset.blog];
+    if (!blog) return;
 
-      titleEl.innerHTML = blog.title;
-      contentEl.innerHTML = blog.content;
-      modal.classList.add("show");
+    titleEl.innerHTML = blog.title;
+    contentEl.innerHTML = blog.content;
 
-      // 🔥 força Prism a aplicar highlight no conteúdo injeta
-      if (window.Prism) {
-        Prism.highlightAll();
-      }
-    });
-  });
+    blogModal.classList.add("show");
+    document.body.style.overflow = "hidden";
 
-  closeBtn.addEventListener("click", () => {
-    modal.classList.remove("show");
-  });
+    // 👉 aplica estado visual no botão de tema
+    themeToggle?.classList.add("hidden-by-modal");
 
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.classList.remove("show");
+    // Prism highlight
+    if (window.Prism) {
+      Prism.highlightAll();
     }
   });
+});
+
+/* =========================
+   FECHAR MODAL
+========================= */
+
+// 🔴 botão X
+blogCloseBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  closeBlogModal();
+});
+
+// 🔴 clique fora
+blogModal.addEventListener("click", (e) => {
+  if (e.target === blogModal) {
+    closeBlogModal();
+  }
+});
+
+// 🔴 tecla ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && blogModal.classList.contains("show")) {
+    closeBlogModal();
+  }
+});
+
+/* =========================
+   FUNÇÃO CENTRAL
+========================= */
+function closeBlogModal() {
+  blogModal.classList.remove("show");
+  document.body.style.overflow = "";
+
+  // 👉 remove estado visual do botão de tema
+  themeToggle?.classList.remove("hidden-by-modal");
+}
+
 
   const container = document.querySelector(".blogs-horizontal");
   const btnLeft = document.querySelector(".blogs-wrapper .scroll-btn.left");
