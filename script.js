@@ -161,6 +161,20 @@ function openCarouselFromProject(projectEl, startIndex = 0) {
   document.body.style.overflow = "hidden";
 }
 
+function openCarouselFromCertificate(projectEl, startIndex = 0) {
+  const media = projectEl.querySelector(".certificate-media");
+  if (!media) return;
+
+  images = Array.from(media.querySelectorAll("img"));
+  if (!images.length) return;
+
+  currentIndex = startIndex;
+
+  renderCarousel();
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
 // renderiza imagem atual
 function renderCarousel() {
   track.innerHTML = "";
@@ -211,6 +225,25 @@ document.querySelectorAll(".project-body").forEach(body => {
   body.addEventListener("click", () => {
     const project = body.closest(".project-card");
     openCarouselFromProject(project, 0);
+  });
+});
+
+document.querySelectorAll(".certificate-media img").forEach((img, index) => {
+  img.style.cursor = "zoom-in";
+
+  img.addEventListener("click", (e) => {
+    e.stopPropagation(); // ⛔ evita duplicar evento
+    const project = img.closest(".certificate-card");
+    openCarouselFromCertificate(project, index);
+  });
+});
+
+document.querySelectorAll(".certificate-body").forEach(body => {
+  body.style.cursor = "zoom-in";
+
+  body.addEventListener("click", () => {
+    const project = body.closest(".certificate-card");
+    openCarouselFromCertificate(project, 0);
   });
 });
 
