@@ -740,6 +740,7 @@ com.example.payments
     </p>
   </div>
 
+  </br>
   <h2>Exemplo prático</h2>
 
   <p>
@@ -971,3 +972,27 @@ if (scrollBtn && end) {
     scrollBtn.style.pointerEvents = reachedEnd ? 'none' : 'auto';
   });
 }
+
+/* =========================
+   THEME TOGGLE
+========================= */
+const toggleBtn = document.querySelector('.theme-toggle');
+const body = document.body;
+
+// carrega preferência
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+  body.classList.add('dark');
+  toggleBtn.textContent = '☀️';
+}
+
+// toggle
+toggleBtn.addEventListener('click', () => {
+  body.classList.toggle('dark');
+
+  const isDark = body.classList.contains('dark');
+  toggleBtn.textContent = isDark ? '☀️' : '🌙';
+
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
