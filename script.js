@@ -146,7 +146,6 @@ const btnClose = modal.querySelector(".carousel-close");
 let currentIndex = 0;
 let images = [];
 
-// abre o carrossel
 function openCarouselFromProject(projectEl, startIndex = 0) {
   const media = projectEl.querySelector(".project-media");
   if (!media) return;
@@ -155,23 +154,21 @@ function openCarouselFromProject(projectEl, startIndex = 0) {
   if (!images.length) return;
 
   currentIndex = startIndex;
-
   renderCarousel();
+
   modal.classList.add("active");
+
   document.body.style.overflow = "hidden";
+  modal.style.overflowY = "auto"; // 🔥
 }
 
-// renderiza imagem atual
 function renderCarousel() {
   track.innerHTML = "";
-
   const img = document.createElement("img");
   img.src = images[currentIndex].src;
-
   track.appendChild(img);
 }
 
-// navegação
 btnPrev.addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   renderCarousel();
@@ -182,7 +179,6 @@ btnNext.addEventListener("click", () => {
   renderCarousel();
 });
 
-// fechar
 btnClose.addEventListener("click", closeCarousel);
 modal.addEventListener("click", (e) => {
   if (e.target === modal) closeCarousel();
@@ -191,7 +187,16 @@ modal.addEventListener("click", (e) => {
 function closeCarousel() {
   modal.classList.remove("active");
   track.innerHTML = "";
+
   document.body.style.overflow = "";
+  modal.style.overflowY = ""; // 🔥
+}
+
+function updateCarouselArrows() {
+  const show = images.length > 1;
+
+  btnPrev.style.display = show ? "flex" : "none";
+  btnNext.style.display = show ? "flex" : "none";
 }
 
 // =========================
@@ -216,60 +221,69 @@ function closeCertificateModal() {
 certificatesClose.addEventListener("click", closeCertificateModal);
 
 certificatesModal.addEventListener("click", (e) => {
-  if (e.target === certificatesModal) {
-    closeCertificateModal();
-  }
+  if (e.target === certificatesModal) closeCertificateModal();
 });
 
-// bind nas imagens
-document.querySelectorAll(".project-card, .certificate-card").forEach(card => {
-  card.style.cursor = "zoom-in";
 
-  card.addEventListener("click", (e) => {
-    const isProject = card.classList.contains("project-card");
-    const mediaSelector = isProject ? ".project-media" : ".certificate-media";
+// =========================
+// BINDS — PROJETOS (CORRIGIDO)
+// =========================
+document.querySelectorAll(".project-card").forEach(card => {
+  const media = card.querySelector(".project-media");
+  if (!media) return;
 
-    const media = card.querySelector(mediaSelector);
-    if (!media) return;
+  const imgs = Array.from(media.querySelectorAll("img"));
+  if (!imgs.length) return;
 
-    const images = Array.from(media.querySelectorAll("img"));
-    if (!images.length) return;
+  // 🔎 imagens válidas (não default)
+  const validImgs = imgs.filter(img => !img.classList.contains("is-default"));
 
-document.querySelectorAll(".project-card, .certificate-card").forEach(card => {
-  card.style.cursor = "zoom-in";
+  // cursor só se houver imagem válida
+  if (validImgs.length) {
+    card.style.cursor = "zoom-in";
+  }
 
-  card.addEventListener("click", (e) => {
-    const isProject = card.classList.contains("project-card");
-    const mediaSelector = isProject ? ".project-media" : ".certificate-media";
+  // Clique no BODY do card
+  card.addEventListener("click", () => {
+    if (!validImgs.length) return; // 🚫 nada pra abrir
+    openCarouselFromProject(card, 0);
+  });
 
-    const media = card.querySelector(mediaSelector);
-    if (!media) return;
-
-    const images = Array.from(media.querySelectorAll("img"));
-    if (!images.length) return;
-
-    const clickedImg = e.target.closest("img") || images[0];
-
+  // Clique dentro da área de mídia
+  media.addEventListener("click", (e) => {
+    const clickedImg = e.target.closest("img");
     if (!clickedImg) return;
 
-    const startIndex = images.indexOf(clickedImg);
-
-    if (isProject) {
-      openCarouselFromProject(card, startIndex);
-    } else {
-      openCertificateModal(clickedImg.src);
+    // 🚫 imagem default não expande
+    if (clickedImg.classList.contains("is-default")) {
+      return;
     }
+
+    e.stopPropagation(); // 🔴 evita disparar o click do card
+
+    const index = validImgs.indexOf(clickedImg);
+    if (index === -1) return;
+
+    openCarouselFromProject(card, index);
   });
 });
-    if (!clickedImg) return;
 
-    const startIndex = images.indexOf(clickedImg);
+// =========================
+// BINDS — CERTIFICADOS
+// =========================
+document.querySelectorAll(".certificate-card").forEach(card => {
+  card.style.cursor = "zoom-in";
 
-    if (isProject) {
-      openCarouselFromProject(card, startIndex);
-    } else {
-      openCertificateModal(clickedImg.src);
-    }
+  card.addEventListener("click", () => {
+    const img = card.querySelector(".certificate-media img");
+    if (img) openCertificateModal(img.src);
+  });
+});
+
+document.querySelectorAll(".certificate-media img").forEach(img => {
+  img.addEventListener("click", (e) => {
+    e.stopPropagation(); // 🔴 impede conflito com o card
+    openCertificateModal(img.src);
   });
 });
 
@@ -1076,7 +1090,7 @@ const body = document.body;
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') {
   body.classList.add('dark');
-  toggleBtn.textContent = '☀️';
+  toggleBtn.textContent = '💡';
 }
 
 // toggle
@@ -1084,7 +1098,7 @@ toggleBtn.addEventListener('click', () => {
   body.classList.toggle('dark');
 
   const isDark = body.classList.contains('dark');
-  toggleBtn.textContent = isDark ? '☀️' : '🌙';
+  toggleBtn.textContent = isDark ? '💡' : '🌙';
 
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
