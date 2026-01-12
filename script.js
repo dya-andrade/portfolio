@@ -154,8 +154,11 @@ function openCarouselFromProject(projectEl, startIndex = 0) {
   if (!images.length) return;
 
   currentIndex = startIndex;
-  renderCarousel();
 
+    // 🔴 controla setas
+  modal.classList.toggle("single-image", images.length <= 1);
+
+  renderCarousel();
   modal.classList.add("active");
 
   document.body.style.overflow = "hidden";
@@ -226,7 +229,7 @@ certificatesModal.addEventListener("click", (e) => {
 
 
 // =========================
-// BINDS — PROJETOS (CORRIGIDO)
+// BINDS — PROJETOS
 // =========================
 document.querySelectorAll(".project-card").forEach(card => {
   const media = card.querySelector(".project-media");
@@ -1110,47 +1113,46 @@ toggleBtn.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
-const projectsCarousel = document.querySelector('.projects-horizontal');
-const blogsCarousel = document.querySelector('.blogs-horizontal');
-const projectHint = document.querySelector('.project-hint');
-const blogHint = document.querySelector('.blog-hint');
+function setupCarouselHint(carouselSelector, cardSelector, hintSelector) {
+  const carousel = document.querySelector(carouselSelector);
+  const hint = document.querySelector(hintSelector);
 
-if (projectsCarousel && projectHint) {
-  const cards = projectsCarousel.querySelectorAll('.project-card');
+  if (!carousel || !hint) return;
+
+  const cards = carousel.querySelectorAll(cardSelector);
+  if (!cards.length) return;
+
   const lastCard = cards[cards.length - 1];
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      projectHint.classList.toggle('hidden', entry.isIntersecting);
+      hint.classList.toggle('hidden', entry.isIntersecting);
     },
     {
-      root: projectsCarousel,      // 🔴 observa dentro do carrossel
-      threshold: 0.6       // quando a maior parte aparecer
+      root: carousel,     // observa dentro do carrossel
+      threshold: 0.6      // 60% visível já conta como "chegou"
     }
   );
 
-  if (lastCard) {
-    observer.observe(lastCard);
-  }
+  observer.observe(lastCard);
 }
 
-if (blogsCarousel && blogHint) {
-  const cards = blogsCarousel.querySelectorAll('.blog-card');
-  const lastCard = cards[cards.length - 1];
+/* =========================
+   PROJETOS
+========================= */
+setupCarouselHint(
+  '.projects-horizontal',
+  '.project-card',
+  '.project-hint'
+);
 
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      blogHint.classList.toggle('hidden', entry.isIntersecting);
-    },
-    {
-      root: blogsCarousel,      // 🔴 observa dentro do carrossel
-      threshold: 0.6       // quando a maior parte aparecer
-    }
-  );
-
-  if (lastCard) {
-    observer.observe(lastCard);
-  }
-}
+/* =========================
+   BLOGS
+========================= */
+setupCarouselHint(
+  '.blogs-horizontal',
+  '.blog-card',
+  '.blog-hint'
+);
 
 
