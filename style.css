@@ -923,10 +923,12 @@ body.dark .paw {
 
 .carousel-nav.left {
   left: 32px;
+  right: auto;
 }
 
 .carousel-nav.right {
   right: 32px;
+  left: auto;
 }
 
 /* Fechar */
@@ -3244,10 +3246,12 @@ body {
 
 .carousel-nav.left {
   left: 16px;
+  right: auto;
 }
 
 .carousel-nav.right {
   right: 16px;
+  left: auto;
 }
 
 @media (max-width: 600px) {
@@ -3287,6 +3291,12 @@ body {
   box-shadow: 0 6px 18px rgba(124, 92, 255, 0.35);
 }
 
+  .carousel-container-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 @media (max-width: 400px) {
   h3 {
     font-size: 0.9rem;
@@ -3305,6 +3315,16 @@ body {
   .carousel-container-nav {
     position: absolute;
     bottom: 30%;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .carousel-nav.left {
+    order: 1;
+  }
+
+  .carousel-nav.right {
+    order: 2;
   }
 
   #carousel-modal .carousel-track img {
@@ -3426,5 +3446,92 @@ body.dark .certificate-card {
 @media (max-width: 360px) {
   .skill-level {
     display: none;
+  }
 }
+
+.project-hint,
+.blog-hint {
+  cursor: pointer;
+  user-select: none;
+}
+
+.project-hint:hover,
+.blog-hint:hover {
+  opacity: 0.85;
+}
+
+.carousel-container-nav {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 16px;
+  transform: translateY(-50%);
+}
+
+.carousel-nav.left {
+  order: 1;
+}
+
+.carousel-nav.right {
+  order: 2;
+}
+
+@media (max-width: 400px) {
+  .carousel-container-nav {
+    position: absolute;
+    bottom: 16px;
+    top: auto;
+    left: 0;
+    right: 0;
+
+    transform: none;
+
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .carousel-nav.left {
+    order: 1;
+  }
+
+  .carousel-nav.right {
+    order: 2;
+  }
+}
+
+@media (max-width: 400px) {
+  .carousel-nav {
+    font-size: 1.4rem;
+  }
+}
+
+.carousel-modal img,
+.carousel-track img {
+  outline: none;
+  border: none;
+}
+
+.carousel-modal img:focus,
+.carousel-track img:focus {
+  outline: none;
+}
+
+.carousel-modal,
+.carousel-track {
+  outline: none;
+}
+
+.carousel-modal:focus,
+.carousel-track:focus {
+  outline: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }

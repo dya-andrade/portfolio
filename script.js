@@ -1124,35 +1124,56 @@ function setupCarouselHint(carouselSelector, cardSelector, hintSelector) {
 
   const lastCard = cards[cards.length - 1];
 
+  /* =========================
+     OBSERVA O ÚLTIMO CARD
+  ========================= */
   const observer = new IntersectionObserver(
     ([entry]) => {
-      hint.classList.toggle('hidden', entry.isIntersecting);
+      if (entry.isIntersecting) {
+        hint.textContent = "";
+        hint.classList.add("is-end");
+      } else {
+        hint.textContent = "→";
+        hint.classList.remove("is-end");
+      }
     },
     {
-      root: carousel,     // observa dentro do carrossel
-      threshold: 0.6      // 60% visível já conta como "chegou"
+      root: carousel,
+      threshold: 0.6
     }
   );
 
   observer.observe(lastCard);
+
+  /* =========================
+     CLICK NA SETA → VAI PRO FIM
+  ========================= */
+  hint.addEventListener("click", () => {
+    lastCard.scrollIntoView({
+      behavior: "smooth",
+      inline: "end",
+      block: "nearest"
+    });
+  });
 }
 
 /* =========================
    PROJETOS
 ========================= */
 setupCarouselHint(
-  '.projects-horizontal',
-  '.project-card',
-  '.project-hint'
+  ".projects-horizontal",
+  ".project-card",
+  ".project-hint"
 );
 
 /* =========================
    BLOGS
 ========================= */
 setupCarouselHint(
-  '.blogs-horizontal',
-  '.blog-card',
-  '.blog-hint'
+  ".blogs-horizontal",
+  ".blog-card",
+  ".blog-hint"
 );
+
 
 
