@@ -3485,7 +3485,6 @@ body.dark .certificate-card {
 @media (max-width: 400px) {
   .carousel-container-nav {
     position: absolute;
-    bottom: 16px;
     top: auto;
     left: 0;
     right: 0;
@@ -3502,6 +3501,10 @@ body.dark .certificate-card {
 
   .carousel-nav.right {
     order: 2;
+  }
+
+  .carousel-track img {
+    min-width: 90vw;
   }
 }
 
@@ -3534,4 +3537,42 @@ body.dark .certificate-card {
 
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+.projects-horizontal,
+.blogs-horizontal {
+  overflow-x: auto;
+  overflow-y: visible;
+
+  /* 🔑 chave do problema */
+  touch-action: pan-y pan-x;
+}
+
+.projects-horizontal,
+.blogs-horizontal {
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-viewport {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.35s ease;
+  touch-action: pan-x pinch-zoom;
+}
+
+.carousel-track img {
+  flex: 0 0 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+
+  /* 🔍 permite zoom */
+  touch-action: pinch-zoom;
+  user-select: none;
 }

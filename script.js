@@ -105,16 +105,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Scroll horizontal com mouse
+const isTouch = 'ontouchstart' in window;
 const projects = document.querySelector('.projects-horizontal');
 
-projects.addEventListener('wheel', (e) => {
-  if (e.deltaY === 0) return;
-  e.preventDefault();
-  projects.scrollBy({
-    left: e.deltaY,
-    behavior: 'smooth'
-  });
-}, { passive: false });
+if (!isTouch && projects) {
+  projects.addEventListener('wheel', (e) => {
+    if (e.deltaY === 0) return;
+    e.preventDefault();
+
+    projects.scrollBy({
+      left: e.deltaY,
+      behavior: 'smooth'
+    });
+  }, { passive: false });
+}
 
 const scrollContainer = document.querySelector('.projects-horizontal');
 const btnLeft = document.querySelector('.scroll-btn.left');
@@ -293,10 +297,11 @@ document.querySelectorAll(".certificate-media img").forEach(img => {
 // Scroll horizontal com mouse — BLOGS
 const blogs = document.querySelector('.blogs-horizontal');
 
-if (blogs) {
+if (!isTouch && blogs) {
   blogs.addEventListener('wheel', (e) => {
     if (e.deltaY === 0) return;
     e.preventDefault();
+
     blogs.scrollBy({
       left: e.deltaY,
       behavior: 'smooth'
@@ -1174,6 +1179,3 @@ setupCarouselHint(
   ".blog-card",
   ".blog-hint"
 );
-
-
-
