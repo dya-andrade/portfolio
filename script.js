@@ -142,6 +142,7 @@ btnRight.addEventListener('click', () => {
 // CAROUSEL MODAL (PROJETOS)
 // =========================
 const modal = document.getElementById("carousel-modal");
+const viewport = modal.querySelector(".carousel-viewport");
 const track = modal.querySelector(".carousel-track");
 const btnPrev = modal.querySelector(".carousel-nav.left");
 const btnNext = modal.querySelector(".carousel-nav.right");
@@ -176,20 +177,7 @@ function renderCarousel() {
   track.appendChild(img);
 }
 
-btnPrev.addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  renderCarousel();
-});
-
-btnNext.addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % images.length;
-  renderCarousel();
-});
-
 btnClose.addEventListener("click", closeCarousel);
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) closeCarousel();
-});
 
 function closeCarousel() {
   modal.classList.remove("active");
@@ -198,6 +186,26 @@ function closeCarousel() {
   document.body.style.overflow = "";
   modal.style.overflowY = ""; // 🔥
 }
+
+// clique fora da imagem
+viewport.addEventListener("click", (e) => {
+  // fecha SOMENTE se clicar no backdrop
+  if (e.target === viewport) {
+    closeCarousel();
+  }
+});
+
+btnPrev.addEventListener("click", (e) => {
+  e.stopPropagation();
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  renderCarousel();
+});
+
+btnNext.addEventListener("click", (e) => {
+  e.stopPropagation();
+  currentIndex = (currentIndex + 1) % images.length;
+  renderCarousel();
+});
 
 function updateCarouselArrows() {
   const show = images.length > 1;
@@ -230,7 +238,6 @@ certificatesClose.addEventListener("click", closeCertificateModal);
 certificatesModal.addEventListener("click", (e) => {
   if (e.target === certificatesModal) closeCertificateModal();
 });
-
 
 // =========================
 // BINDS — PROJETOS

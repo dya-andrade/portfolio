@@ -3596,3 +3596,13 @@ body.dark .certificate-card {
 body.dark .icon-link {
   color: #aba1f5b0;
 }
+
+.carousel-viewport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+  /* 🔥 cria área clicável */
+  box-sizing: border-box;
+}
