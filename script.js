@@ -972,7 +972,7 @@ producer.send(
     }
   };
 
-  const blogModal = document.getElementById("blog-modal");
+const blogModal = document.getElementById("blog-modal");
 const titleEl = document.getElementById("blog-title");
 const contentEl = document.getElementById("blog-content");
 const blogCloseBtn = document.querySelector(".blog-close");
@@ -992,7 +992,10 @@ document.querySelectorAll(".blog-card").forEach(card => {
     blogModal.classList.add("show");
     document.body.style.overflow = "hidden";
 
-    // 👉 aplica estado visual no botão de tema
+    // ✅ GARANTE QUE ABRE NO TOPO
+    blogModal.scrollTop = 0;
+    contentEl.scrollTop = 0;
+
     themeToggle?.classList.add("hidden-by-modal");
 
     // Prism highlight

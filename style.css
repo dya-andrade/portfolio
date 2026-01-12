@@ -3512,6 +3512,10 @@ body.dark .certificate-card {
   .carousel-nav {
     font-size: 1.4rem;
   }
+
+  #carousel-modal .carousel-track {
+    min-width: 120%;
+  }
 }
 
 .carousel-modal img,
