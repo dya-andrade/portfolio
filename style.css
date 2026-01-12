@@ -2463,7 +2463,8 @@ body.dark b {
 }
 
 body.dark .carousel-nav {
-  background: rgb(255 255 255 / 27%);
+  color: #fff;
+  background: rgb(155 101 143 / 27%);
 }
 
 body.dark .carousel-nav:hover {
