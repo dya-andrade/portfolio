@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dya-andrade.github.io/portfolio/sitemap.xml
