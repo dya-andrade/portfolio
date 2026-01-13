@@ -3516,6 +3516,10 @@ body.dark .certificate-card {
   #carousel-modal .carousel-track {
     min-width: 120%;
   }
+
+  .blog-modal-content h2 {
+    font-size: 1.3em;
+  }
 }
 
 .carousel-modal img,
@@ -3609,4 +3613,8 @@ body.dark .icon-link {
   padding: 16px;
   /* 🔥 cria área clicável */
   box-sizing: border-box;
+}
+
+.blog-modal-content h2 {
+  margin-top: inherit;
 }
