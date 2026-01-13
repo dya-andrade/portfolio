@@ -1189,3 +1189,32 @@ setupCarouselHint(
   ".blog-card",
   ".blog-hint"
 );
+
+const menuToggle = document.getElementById("menu-toggle");
+const menu = document.getElementById("menu");
+
+menuToggle.addEventListener("click", () => {
+  const isOpen = menu.classList.toggle("open");
+  menuToggle.textContent = isOpen ? "✕" : "☰";
+  menuToggle.setAttribute(
+    "aria-label",
+    isOpen ? "Fechar menu" : "Abrir menu"
+  );
+});
+
+/* Fecha o menu ao clicar em um link */
+menu.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    menu.classList.remove("open");
+    menuToggle.textContent = "☰";
+    menuToggle.setAttribute("aria-label", "Abrir menu");
+  });
+});
+
+/* Fecha ao redimensionar para desktop */
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768) {
+    menu.classList.remove("open");
+    menuToggle.textContent = "☰";
+  }
+});

@@ -54,6 +54,17 @@
 
 <body>
 
+    <button id="menu-toggle" class="menu-toggle" aria-label="Abrir menu">
+        ☰
+    </button>
+    <nav id="menu" class="nav-glass">
+        <a href="#sobre">Sobre</a>
+        <a href="#skills">Skills</a>
+        <a href="#experiencias">Experiências</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
     <a href="#fim" class="scroll-down-fixed" aria-label="Ir para o final da página">
         ↓
     </a>
@@ -97,7 +108,7 @@
 
     <main>
 
-        <section class="block fade">
+        <section class="block fade" id="sobre">
             <h2 class="section-title">Sobre</h2>
             <p>
                 Este portfólio apresenta, de forma prática, os problemas que resolvo no dia a dia, minha forma de pensar
@@ -137,7 +148,7 @@
             </div>
         </section>
 
-        <section class="block fade">
+        <section class="block fade" id="skills">
             <div class="skills-grid">
 
                 <!-- HARD SKILLS -->
@@ -313,7 +324,7 @@
 
         </section>
 
-        <section class="block fade">
+        <section class="block fade" id="experiencias">
             <h2 class="section-title">Experiências</h2>
 
             <article class="card destaque experience-card">
@@ -431,7 +442,7 @@
             </div>
         </section>
 
-        <section class="block fade">
+        <section class="block fade" id="projetos">
             <div class="section-header">
                 <span class="cat">🐱</span>
                 <h2 class="section-title">Projetos</h2>
@@ -716,7 +727,7 @@
         </section>
 
 
-        <section class="block fade">
+        <section class="block fade" id="contato">
             <h2 class="section-title">Contato</h2>
 
             <form id="contact-form" novalidate>
